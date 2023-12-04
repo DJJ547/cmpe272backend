@@ -36,6 +36,13 @@ class Manager(Employee):
         app.mysql.connection.commit()
         cur.close()
         return
+    
+    def cancel_shift(self, shift_id):
+        cur = app.mysql.connection.cursor()
+        cur.execute("DELETE FROM shifts WHERE shift_id = %s", (shift_id,))
+        app.mysql.connection.commit()
+        cur.close()
+        return
 
     def get_employee_no(self, first_name, last_name):
         cur = app.mysql.connection.cursor()

@@ -25,7 +25,19 @@ def assign_shift(first_name, last_name, start_time, end_time):
         manager.assign_shift(emp_no, start_time, end_time)
         output = {'error': False, 'message': 'success'}
     return output
-    
+
+def cancel_shift(shift_no):
+    manager = Manager(app.redis.get('employee_no'))
+    cur = app.mysql.connection.cursor()
+    cur.execute("SELECT * FROM shifts WHERE shift_id = %s", (shift_no,))
+    target_shift = cur.fetchone()
+    cur.close()
+    if not target_shift:
+        output = {'error': True, 'message': 'Shift not exist'}
+    else:
+        manager.cancel_shift(shift_no)
+        output = {'error': False, 'message': 'success'}
+    return output
 
 
 

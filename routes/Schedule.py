@@ -18,9 +18,13 @@ def assign_employee_shift():
     output = schedules.assign_shift(firse_name, last_name, assign_start_time, assign_end_time)
     return Response(json.dumps(output), status=200)
 
+@schedule.route('/dashboard/manager/cancel', methods=['POST'])
+def cancel_schedule():
+    shift_no = request.json.get('shift_no')
+    output = schedules.cancel_shift(shift_no)
+    return Response(json.dumps(output), status=200)
+
 @schedule.route('/dashboard/employee/schedule', methods=['GET'])
 def get_schedule():
     output = schedules.get_self_schedule()
     return Response(json.dumps(output), status=200)
-
-

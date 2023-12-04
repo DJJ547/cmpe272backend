@@ -14,6 +14,7 @@ from routes.admin_route import admin_route
 from routes.dashboard import dashboard
 from routes.setting import setting
 from routes.Schedule import schedule
+import os 
 
 # authentication routes
 app.register_blueprint(auth)
