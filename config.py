@@ -23,9 +23,9 @@ class MyApp(Flask):
         self.config['MYSQL_PASSWORD'] = os.environ.get('MYSQL_PASSWORD')
         self.config['MYSQL_DB'] = os.environ.get('MYSQL_DB')
         # Configure Redis for storing the session data on the server-side
-        # self.redis_client = FlaskRedis(self)
-        # url = urlparse(os.environ.get(''))
-        self.redis = redis.Redis(host=os.environ.get('REDIS_HOST'), port=os.environ.get('PORT_NUM'), password=os.environ.get('PASSWORD'), decode_responses=True)
+        url = urlparse.urlparse(os.environ.get('REDISCLOUD_URL'))
+        self.redis = redis.Redis(host=url.hostname, port=url.port, password=url.password)
+        # self.redis = redis.Redis(host=os.environ.get('REDIS_HOST'), port=os.environ.get('PORT_NUM'), password=os.environ.get('PASSWORD'), decode_responses=True)
         # self.redis = redis.Redis(host=os.environ.get('REDIS_HOST'), port=6379, decode_responses=True)
         self.mysql = MySQL(self)
         CORS(self, origins=os.environ.get('FRONTEND_URL'))
