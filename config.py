@@ -2,6 +2,7 @@ from flask import Flask, Blueprint, request, Response, jsonify, json
 from flask_mysqldb import MySQL
 from flask_cors import CORS
 from flask_socketio import SocketIO
+from urllib.parse import urlparse
 import redis
 import os
 import sys
@@ -23,7 +24,9 @@ class MyApp(Flask):
         self.config['MYSQL_DB'] = os.environ.get('MYSQL_DB')
         # Configure Redis for storing the session data on the server-side
         # self.redis_client = FlaskRedis(self)
-        self.redis = redis.Redis(host=os.environ.get('REDIS_HOST'), port=6379, decode_responses=True)
+        url = urlparse(os.environ.get('redis-12603.c13.us-east-1-3.ec2.cloud.redislabs.com:12603'))
+        self.redis = redis.Redis(host=url.hostname, port=url.port, password=url.password, decode_responses=True)
+        # self.redis = redis.Redis(host=os.environ.get('REDIS_HOST'), port=6379, decode_responses=True)
         self.mysql = MySQL(self)
         CORS(self, origins=os.environ.get('FRONTEND_URL'))
 

@@ -32,6 +32,10 @@ def test():
     output = 'testing'
     return Response(json.dumps(output), status=200)
 
+@app.route('/')
+def home():
+    return render_template("index.html")
+
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
