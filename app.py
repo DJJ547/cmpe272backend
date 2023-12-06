@@ -32,7 +32,7 @@ def test():
     output = 'testing'
     return Response(json.dumps(output), status=200)
 
-@app.route('/')
+@app.route('/home')
 def home():
     return render_template("index.html")
 
